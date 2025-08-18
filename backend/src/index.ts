@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use("/auth", authRoutes);
 app.use("/user", authenticate, userRoutes);
 app.use("/project", authenticate, projectRoutes);
-app.use("/log", authenticate, logRoutes);
+app.use("/log", logRoutes);
 
 app.use(errorHandler);
 

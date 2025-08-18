@@ -19,12 +19,7 @@ const authenticate: RequestHandler = (req, res, next) => {
 
     const payload = jwt.verify(token, JWT_SECRET) as JwtPayload;
 
-    if (!req.user) {
-        req.user = { id: payload.id, role: payload.role };
-    } else {
-        req.user.id = payload.id;
-        req.user.role = payload.role;
-    }
+    req.user = { id: payload.id, role: payload.role };
 
     next();
 };

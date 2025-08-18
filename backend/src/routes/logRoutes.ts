@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { getAllLogs, getLogsByProjectId, getLogById, postLog } from "../controllers/logController";
 import { verifyApiKey } from "../middleware/verifyApiKey";
+import authenticate from "../middleware/authenticate";
 
 const logRoutes = Router();
 
-logRoutes.get("/", getAllLogs);
-logRoutes.get("/project/:projectId", getLogsByProjectId);
-logRoutes.get("/:id", getLogById);
+logRoutes.get("/", authenticate, getAllLogs);
+logRoutes.get("/project/:id", authenticate, getLogsByProjectId);
+logRoutes.get("/:id", authenticate, getLogById);
 logRoutes.post("/", verifyApiKey, postLog);
 
 export default logRoutes;

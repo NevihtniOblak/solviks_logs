@@ -7,5 +7,11 @@ declare module "express-serve-static-core" {
             username?: string;
             role?: string;
         };
+        project?: {
+            id: string;
+            name: string;
+            apiKey: string;
+            createdBy: string;
+        };
     }
 }

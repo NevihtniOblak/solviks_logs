@@ -2,6 +2,7 @@ import errorCatcher from "../utils/errorCatcher";
 import { Request, Response } from "express";
 import crypto from "crypto";
 import { Project } from "../models/ProjectModel";
+import { Log } from "../models/LogModel";
 import { OK, BAD_REQUEST, UNAUTHORIZED, NOT_FOUND, CREATED } from "../constants/http";
 
 export const getAllProjects = errorCatcher(async (req: Request, res: Response) => {
@@ -34,7 +35,7 @@ export const createProject = errorCatcher(async (req: Request, res: Response) =>
     const apiKey = crypto.randomBytes(32).toString("hex");
 
     const project = new Project({
-        name,
+        name: name,
         apiKey: apiKey,
         createdBy: userId,
     });
@@ -43,4 +44,17 @@ export const createProject = errorCatcher(async (req: Request, res: Response) =>
     res.status(CREATED).json({
         apiKey: apiKey,
     });
+});
+
+export const deleteProject = errorCatcher(async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const project = await Project.findByIdAndDelete(id);
+    if (!project) {
+        return res.status(NOT_FOUND).json({ error: "Project not found" });
+    }
+
+    await Log.deleteMany({ project: id });
+
+    return res.status(OK).send();
 });

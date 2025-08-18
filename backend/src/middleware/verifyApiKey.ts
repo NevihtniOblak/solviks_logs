@@ -4,7 +4,7 @@ import errorCatcher from "../utils/errorCatcher";
 import crypto from "crypto";
 
 export const verifyApiKey: RequestHandler = errorCatcher(async (req, res, next) => {
-    const candidateKey = req.header("x-api-key") || req.body.apiKey;
+    const candidateKey = req.body.apiKey;
 
     if (!candidateKey) {
         return res.status(401).json({ error: "No API key provided" });
@@ -18,7 +18,13 @@ export const verifyApiKey: RequestHandler = errorCatcher(async (req, res, next) 
         return res.status(401).json({ error: "Invalid API key" });
     }
 
-    (req as any).project = project;
+    req.project = {
+        id: project._id as string,
+        name: project.name,
+        apiKey: project.apiKey,
+        createdBy: project.createdBy.toString(),
+    };
+
     next();
 });
 

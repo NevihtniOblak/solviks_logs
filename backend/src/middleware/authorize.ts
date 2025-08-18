@@ -3,7 +3,7 @@ import { UNAUTHORIZED, FORBIDDEN } from "../constants/http";
 
 export const authorize = (requiredRole: "admin" | "user"): RequestHandler => {
     return (req, res, next) => {
-        const role = (req as any).role;
+        const role = req.user?.role;
 
         if (!role) {
             const err = new Error("Not authenticated");

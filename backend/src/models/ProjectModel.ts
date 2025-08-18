@@ -2,7 +2,6 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 import crypto from "crypto";
 
 export interface Project extends Document {
-    _id: mongoose.Types.ObjectId;
     name: string;
     apiKey: string;
     createdBy: mongoose.Types.ObjectId;

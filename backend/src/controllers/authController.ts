@@ -14,7 +14,7 @@ export const register = errorCatcher(async (req, res) => {
 
     const existingUser = await User.exists({ username });
     if (existingUser) {
-        return res.status(CONFLICT).json({ message: "User with the same username already exists" });
+        return res.status(CONFLICT).json({ message: "User with the same username already exists!" });
     }
 
     const user = new User({
@@ -32,12 +32,12 @@ export const login = errorCatcher(async (req, res) => {
 
     const user = await User.findOne({ username });
     if (!user) {
-        return res.status(UNAUTHORIZED).json({ message: "Invalid credentials" });
+        return res.status(UNAUTHORIZED).json({ message: "User with that username does not exist" });
     }
 
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-        return res.status(UNAUTHORIZED).json({ message: "Invalid credentials" });
+        return res.status(UNAUTHORIZED).json({ message: "Invalid password for user" });
     }
 
     const payload: JwtPayload = { id: user._id.toString(), role: user.role };
