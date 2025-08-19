@@ -1,9 +1,10 @@
 import { useContext } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { UserContext } from "../../context/UserContext";
-import { loginUser } from "./";
+import { loginUser, logoutUser } from "./";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "../../constants/routes";
+import { QueryKeys } from "../../constants/queryKeys";
 
 type UseLoginMutationProps = {
     usernameRef: React.RefObject<HTMLInputElement | null>;
@@ -25,5 +26,13 @@ export const useLoginMutation = ({ usernameRef, passwordRef }: UseLoginMutationP
             if (usernameRef.current) usernameRef.current.value = "";
             if (passwordRef.current) passwordRef.current.value = "";
         },
+    });
+};
+
+export const useLogoutQuery = () => {
+    return useQuery({
+        queryKey: [QueryKeys.USER],
+        queryFn: logoutUser,
+        enabled: false,
     });
 };

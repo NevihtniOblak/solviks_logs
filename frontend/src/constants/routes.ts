@@ -1,6 +1,8 @@
 export const Routes = {
     HOME: { route: "/", name: "Home" },
     LOGIN: { route: "/login", name: "Login" },
+    PROJECTS: { route: "/projects", name: "Projects" },
+    USERS: { route: "/users", name: "Users" },
 } as const;
 
 export type Route = (typeof Routes)[keyof typeof Routes];

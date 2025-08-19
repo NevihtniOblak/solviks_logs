@@ -51,12 +51,9 @@ export const login = errorCatcher(async (req, res) => {
     });
 
     return res.status(OK).json({
-        message: "Login successful",
-        user: {
-            id: user._id,
-            username: user.username,
-            role: user.role,
-        },
+        id: user._id,
+        username: user.username,
+        role: user.role,
     });
 });
 
