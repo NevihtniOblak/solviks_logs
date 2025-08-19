@@ -31,7 +31,7 @@ export default function Sidebar({ className }: SidebarProps) {
                 />
 
                 <button className={classes.iconButton} onClick={() => navigate(Routes.PROJECTS.route)}>
-                    <img src="/images/projectIcon.png" alt="Projects" className={classes.icon} />
+                    <img src="/images/projectIconWhite.png" alt="Projects" className={classes.icon} />
                 </button>
 
                 <button className={classes.iconButton} onClick={() => navigate(Routes.USERS.route)}>

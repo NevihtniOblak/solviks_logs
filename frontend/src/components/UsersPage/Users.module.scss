@@ -1,0 +1,48 @@
+@import "../../constants/colors";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.innerContainer {
+    width: 80%;
+    height: 100%;
+    margin-top: 10vh;
+    h1 {
+        font-family: "Roboto", sans-serif;
+        font-size: 45px;
+        font-weight: 200;
+        color: $titleText;
+        margin-bottom: 50px;
+    }
+    .grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: flex-start;
+    }
+}
+
+.addCard {
+    width: 150px;
+    height: 200px;
+    border: 2px dashed #aaa;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: transform 0.2s;
+
+    &:hover {
+        transform: translateY(-4px);
+        border-color: #555;
+        color: #555;
+    }
+}
