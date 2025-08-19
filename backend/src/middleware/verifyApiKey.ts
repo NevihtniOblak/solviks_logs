@@ -2,12 +2,13 @@ import { RequestHandler } from "express";
 import { Project } from "../models/ProjectModel";
 import errorCatcher from "../utils/errorCatcher";
 import crypto from "crypto";
+import { UNAUTHORIZED } from "../constants/http";
 
 export const verifyApiKey: RequestHandler = errorCatcher(async (req, res, next) => {
     const candidateKey = req.body.apiKey;
 
     if (!candidateKey) {
-        return res.status(401).json({ error: "No API key provided" });
+        return res.status(UNAUTHORIZED).json({ error: "No API key provided" });
     }
 
     const candidateHash = crypto.createHash("sha256").update(candidateKey).digest("hex");
@@ -15,7 +16,7 @@ export const verifyApiKey: RequestHandler = errorCatcher(async (req, res, next) 
     const project = await Project.findOne({ apiKey: candidateHash });
 
     if (!project) {
-        return res.status(401).json({ error: "Invalid API key" });
+        return res.status(UNAUTHORIZED).json({ error: "Invalid API key" });
     }
 
     req.project = {
