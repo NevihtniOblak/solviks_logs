@@ -1,0 +1,21 @@
+@import "../../../constants/colors.scss";
+
+.button {
+    padding: 10px 25px;
+    background-color: $tertiary;
+    color: $primary;
+    font-family: "Inter", sans-serif;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: fit-content;
+
+    &:hover {
+        background-color: $secondary;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}

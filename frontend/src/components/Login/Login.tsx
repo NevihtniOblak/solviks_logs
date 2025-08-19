@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import type { FormEvent } from "react";
 import { useLoginMutation } from "../../api/auth/hooks";
+
 import classes from "./Login.module.scss";
 
 export default function Login() {
@@ -25,32 +26,34 @@ export default function Login() {
             <div className={classes.leftContainer}></div>
 
             <div className={classes.rightContainer}>
-                <h1 className={classes.title}>Login</h1>
-                <form className={classes.form} onSubmit={handleSubmit}>
-                    <div className={classes.formGroup}>
+                <div className={classes.formOuterContainer}>
+                    <form className={classes.form} onSubmit={handleSubmit}>
+                        <h1 className={classes.title}>
+                            Sign in with your <br /> credentials
+                        </h1>
+
                         <input
-                            id="username"
                             type="text"
                             placeholder="Username"
-                            className={classes.input}
                             ref={usernameRef}
+                            className={classes.input}
                             required
                         />
-                    </div>
-
-                    <div className={classes.formGroup}>
                         <input
-                            id="password"
                             type="password"
                             placeholder="Password"
-                            className={classes.input}
                             ref={passwordRef}
+                            className={classes.input}
                             required
                         />
-                    </div>
 
-                    <button type="submit" className={classes.button}></button>
-                </form>
+                        <div className={classes.buttonWrapper}>
+                            <button type="submit" className={classes.button}>
+                                Login
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );
