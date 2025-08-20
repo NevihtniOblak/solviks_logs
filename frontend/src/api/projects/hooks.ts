@@ -1,10 +1,9 @@
 import { QueryKeys } from "../../constants/queryKeys";
 import { useQuery } from "@tanstack/react-query";
-import { getProjects } from "./";
 import type { Project } from "../../models/ProjectModel";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
-import { addProject } from "./";
+import { addProject, getProjectById, getProjects } from "./";
 
 type useAddProjectMutationProps = {
     projectNameRef: React.RefObject<HTMLInputElement | null>;
@@ -16,6 +15,13 @@ export const useProjectsQuery = () => {
     return useQuery({
         queryKey: [QueryKeys.PROJECTS],
         queryFn: getProjects,
+    });
+};
+
+export const useProjectQuery = (id: string) => {
+    return useQuery({
+        queryKey: [QueryKeys.PROJECTS, id],
+        queryFn: () => getProjectById(id),
     });
 };
 

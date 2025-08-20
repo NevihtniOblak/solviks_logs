@@ -18,7 +18,7 @@ export const getProjectById = errorCatcher(async (req: Request, res: Response) =
         return res.status(NOT_FOUND).json({ error: "Project not found" });
     }
 
-    return res.status(OK).json({ project });
+    return res.status(OK).json(project);
 });
 
 export const createProject = errorCatcher(async (req: Request, res: Response) => {

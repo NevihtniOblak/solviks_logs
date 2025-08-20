@@ -23,7 +23,7 @@ export const ApiRoutes = {
     deleteProject: (id: string) => `/project/${id}` as const,
     //log
     getLogById: (id: string) => `/log/${id}` as const,
-    getLogByProjectId: (projectId: string) => `/log/project/${projectId}` as const,
+    getLogsByProjectId: (projectId: string) => `/log/project/${projectId}` as const,
     postLog: () => `/log` as const,
     getAllLogs: () => `/log` as const,
 } as const;

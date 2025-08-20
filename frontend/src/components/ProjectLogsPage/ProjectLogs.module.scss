@@ -1,0 +1,131 @@
+@import "../../constants/colors";
+
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    .leftContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        gap: 15px;
+        padding: 0px 50px;
+        padding-bottom: 5px;
+        margin-top: 10vh;
+    }
+
+    .rightContainer {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        justify-content: center;
+    }
+}
+
+.projectName {
+    width: 100%;
+
+    font-family: "Roboto", sans-serif;
+    font-size: 45px;
+    font-weight: 200;
+    color: $titleText;
+    margin-bottom: 50px;
+}
+
+.buttonsContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .select {
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+        background-color: lighten($tertiary, 10%);
+        font-size: 16px;
+        color: $textWhite;
+        text-align: center;
+
+        cursor: pointer;
+    }
+
+    .button {
+        padding: 10px 25px;
+        background-color: $tertiary;
+        color: $primary;
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        width: fit-content;
+
+        &:hover {
+            background-color: $secondary;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+}
+
+.logsContainer {
+    width: 100%;
+    overflow-y: scroll;
+
+    -webkit-scrollbar {
+        display: none;
+    }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.statsContainer {
+    background-color: $cardBackgroundLight;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .statsSubTitle {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+        color: $textDark;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .severityList {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .severityItem {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        span {
+            font-family: "Inter", sans-serif;
+        }
+
+        .severityCircle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .count {
+            margin-left: auto;
+        }
+    }
+}

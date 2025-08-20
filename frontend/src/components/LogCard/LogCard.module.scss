@@ -1,0 +1,37 @@
+@import "../../constants/colors";
+
+.container {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background-color: $cardBackgroundLight;
+    margin-bottom: 8px;
+    min-height: 50px;
+    width: 100%;
+}
+
+.source {
+    flex-shrink: 0;
+    color: $textDark;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+.severity {
+    color: $primary;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+    min-width: 60px;
+    margin-right: 25px;
+}
+
+.timestamp {
+    color: $textDark;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
