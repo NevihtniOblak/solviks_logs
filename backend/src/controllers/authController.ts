@@ -24,7 +24,13 @@ export const register = errorCatcher(async (req, res) => {
     });
     await user.save();
 
-    return res.status(CREATED).json({ message: "User registered successfully" });
+    const responseUser = {
+        _id: user._id.toString(),
+        username: user.username,
+        role: user.role,
+    };
+
+    return res.status(CREATED).json(responseUser);
 });
 
 export const login = errorCatcher(async (req, res) => {
@@ -47,7 +53,7 @@ export const login = errorCatcher(async (req, res) => {
         httpOnly: true,
         secure: NODE_ENV === "production",
         sameSite: "strict",
-        maxAge: 15 * 60 * 1000, // 15 min
+        maxAge: 30 * 60 * 1000, // 30 min
     });
 
     return res.status(OK).json({

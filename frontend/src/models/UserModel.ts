@@ -1,5 +1,7 @@
+import type { UserRole } from "./UserRole";
+
 export interface User {
-    id: string;
+    _id: string;
     username: string;
-    role: "admin" | "user";
+    role: UserRole;
 }

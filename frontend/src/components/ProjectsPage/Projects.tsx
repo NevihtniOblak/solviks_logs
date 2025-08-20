@@ -1,17 +1,23 @@
 import ProjectCard from "../ProjectCard/ProjectCard";
-import classes from "./Projects.module.scss";
 import type { Project } from "../../models/ProjectModel";
+import { useNavigate } from "react-router";
+import { useProjectsQuery } from "../../api/projects/hooks";
+import { useState } from "react";
+import AddProjectModal from "../AddProjectModal/AddProjectModal";
 
-const hardcodedProjects: Project[] = [
-    { id: "1", name: "Project A" },
-    { id: "2", name: "Project B" },
-    { id: "3", name: "Project C" },
-];
+import classes from "./Projects.module.scss";
 
 export default function Projects() {
+    const [showModal, setShowModal] = useState(false);
+
     const handleAddProject = () => {
-        console.log("Add new project clicked");
+        setShowModal(true);
     };
+
+    const { data } = useProjectsQuery();
+    const projects: Project[] = data ?? [];
+
+    const navigate = useNavigate();
 
     return (
         <div className={classes.container}>
@@ -22,11 +28,17 @@ export default function Projects() {
                         <span>+</span>
                     </div>
 
-                    {hardcodedProjects.map((project) => (
-                        <ProjectCard key={project.id} project={project} onClick={() => console.log(project.id)} />
+                    {projects.map((project) => (
+                        <ProjectCard
+                            key={project._id}
+                            project={project}
+                            onClick={() => navigate(`/projects/${project._id}`)}
+                        />
                     ))}
                 </div>
             </div>
+
+            {showModal && <AddProjectModal closeModal={() => setShowModal(false)} />}
         </div>
     );
 }

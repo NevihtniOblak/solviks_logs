@@ -7,7 +7,7 @@ import { OK, BAD_REQUEST, UNAUTHORIZED, NOT_FOUND, CREATED } from "../constants/
 
 export const getAllProjects = errorCatcher(async (req: Request, res: Response) => {
     const projects = await Project.find();
-    return res.status(OK).json({ projects });
+    return res.status(OK).json(projects);
 });
 
 export const getProjectById = errorCatcher(async (req: Request, res: Response) => {
@@ -41,7 +41,13 @@ export const createProject = errorCatcher(async (req: Request, res: Response) =>
     });
     await project.save();
 
+    const responseProject = {
+        id: project._id,
+        name: project.name,
+    };
+
     res.status(CREATED).json({
+        project: responseProject,
         apiKey: apiKey,
     });
 });

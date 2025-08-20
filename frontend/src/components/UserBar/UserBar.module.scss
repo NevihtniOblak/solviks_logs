@@ -9,7 +9,7 @@
     width: fit-content;
     height: fit-content;
     border-bottom-left-radius: 15px;
-    color: $text_white;
+    color: $textWhite;
     font-family: "Inter", sans-serif;
     font-weight: 200;
     gap: 10px;
@@ -38,7 +38,7 @@
 .userRank {
     font-size: 10px;
     font-weight: 100;
-    color: darken($text_white, 10%);
+    color: darken($textWhite, 10%);
 }
 
 .logoutButton {
