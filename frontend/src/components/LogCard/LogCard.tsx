@@ -4,14 +4,15 @@ import classes from "./LogCard.module.scss";
 
 interface LogCardProps {
     log: Log;
+    onClick?: () => void;
 }
 
-export default function LogCard({ log }: LogCardProps) {
+export default function LogCard({ log, onClick }: LogCardProps) {
     const severityLabel = severityLabels[log.severity] || "info";
     const severityColor = severityColors[log.severity];
 
     return (
-        <div className={classes.container}>
+        <div className={classes.container} onClick={onClick}>
             <div className={classes.source}>{log.source}</div>
 
             <div className={classes.spacer}></div>

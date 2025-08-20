@@ -21,12 +21,12 @@ export const severityLabels: Record<number, string> = {
 };
 
 export const severityStrings: Record<number, string> = {
-    0: "emergency",
-    1: "alert",
-    2: "critical",
-    3: "error",
-    4: "warning",
-    5: "notice",
-    6: "info",
-    7: "debug",
+    0: "Emergency",
+    1: "Alert",
+    2: "Critical",
+    3: "Error",
+    4: "Warning",
+    5: "Notice",
+    6: "Info",
+    7: "Debug",
 };

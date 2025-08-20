@@ -8,8 +8,9 @@ import { exportLogsToExcel } from "../../utils/exportLogs";
 import type { SortMode } from "../../models/SortMode";
 import { useEffect, useMemo, useState } from "react";
 import { sortLogs } from "../../utils/sortLogs";
-import classes from "./ProjectLogs.module.scss";
 import { useLogsByProjectQuery } from "../../api/logs/hooks";
+import LogModal from "../LogModal/LogModal";
+import classes from "./ProjectLogs.module.scss";
 
 export default function ProjectLogs() {
     const { id } = useParams();
@@ -19,6 +20,8 @@ export default function ProjectLogs() {
     const { data: logsData } = useLogsByProjectQuery(id!);
     const [logs, setLogs] = useState<Log[]>(logsData || []);
     const [sortMode, setSortMode] = useState<SortMode>("latest");
+
+    const [selectedLog, setSelectedLog] = useState<Log | null>(null);
 
     useEffect(() => {
         setLogs(sortLogs(logs, sortMode));
@@ -50,7 +53,7 @@ export default function ProjectLogs() {
                 </div>
                 <div className={classes.logsContainer}>
                     {logs.map((log) => (
-                        <LogCard key={log._id.toString()} log={log} />
+                        <LogCard key={log._id.toString()} log={log} onClick={() => setSelectedLog(log)} />
                     ))}
                 </div>
             </div>
@@ -75,6 +78,7 @@ export default function ProjectLogs() {
                     </div>
                 </div>
             </div>
+            {selectedLog && <LogModal log={selectedLog} closeModal={() => setSelectedLog(null)} />}
         </div>
     );
 }
