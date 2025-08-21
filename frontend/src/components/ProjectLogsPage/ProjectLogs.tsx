@@ -6,26 +6,24 @@ import { countLogsBySeverity, countLogsLastDay, countLogsLastHour } from "../../
 import { severityColors, severityStrings } from "../../constants/logSeverity";
 import { exportLogsToExcel } from "../../utils/exportLogs";
 import type { SortMode } from "../../models/SortMode";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { sortLogs } from "../../utils/sortLogs";
 import { useLogsByProjectQuery } from "../../api/logs/hooks";
 import LogModal from "../LogModal/LogModal";
 import classes from "./ProjectLogs.module.scss";
+import type { Project } from "../../models/ProjectModel";
 
 export default function ProjectLogs() {
-    const { id } = useParams();
-    const { data, isLoading } = useProjectQuery(id!);
-
-    const project = data ?? {};
-    const { data: logsData } = useLogsByProjectQuery(id!);
-    const [logs, setLogs] = useState<Log[]>(logsData || []);
+    const [selectedLog, setSelectedLog] = useState<Log | null>(null);
     const [sortMode, setSortMode] = useState<SortMode>("latest");
 
-    const [selectedLog, setSelectedLog] = useState<Log | null>(null);
+    const { id } = useParams();
 
-    useEffect(() => {
-        setLogs(sortLogs(logs, sortMode));
-    }, [sortMode]);
+    const { data: projectData, isLoading } = useProjectQuery(id!);
+    const project: Project | undefined = projectData;
+
+    const { data: logsData } = useLogsByProjectQuery(id!);
+    const logs = useMemo(() => (logsData ? sortLogs(logsData, sortMode) : []), [logsData, sortMode]);
 
     const logsLastHour = useMemo(() => countLogsLastHour(logs), [logs]);
     const logsLastDay = useMemo(() => countLogsLastDay(logs), [logs]);
@@ -47,7 +45,11 @@ export default function ProjectLogs() {
                         <option value="mostSevere">Most Severe</option>
                         <option value="leastSevere">Least Severe</option>
                     </select>
-                    <button className={classes.button} onClick={() => exportLogsToExcel(logs, project.name)}>
+                    <button
+                        className={classes.button}
+                        onClick={() => exportLogsToExcel(logs, project?.name || "")}
+                        disabled={!project}
+                    >
                         Export to Excel
                     </button>
                 </div>

@@ -1,21 +1,33 @@
 import errorCatcher from "../utils/errorCatcher";
 import { User } from "../models/UserModel";
-import { JwtPayload } from "jsonwebtoken";
-import jwt from "jsonwebtoken";
-import { JWT_SECRET, NODE_ENV } from "../constants/env";
-import { CONFLICT, CREATED, OK, UNAUTHORIZED } from "../constants/http";
+import { JwtPayload } from "../utils/jwt";
+import { NODE_ENV } from "../constants/env";
+import { BAD_REQUEST, CONFLICT, CREATED, OK, UNAUTHORIZED } from "../constants/http";
+import { assertAppError } from "../utils/assertAppError";
+import { AppErrorCode } from "../types/AppErrorCode";
+import { Request, Response } from "express";
+import { signJwt } from "../utils/jwt";
 
-export const register = errorCatcher(async (req, res) => {
+export const register = errorCatcher(async (req: Request, res: Response) => {
     const { username, password, role } = req.body as {
         username: string;
         password: string;
         role?: "admin" | "user";
     };
+    assertAppError(
+        username != null && password != null,
+        "Username and password are required",
+        BAD_REQUEST,
+        AppErrorCode.MISSING_REQUEST_DATA
+    );
 
     const existingUser = await User.exists({ username });
-    if (existingUser) {
-        return res.status(CONFLICT).json({ message: "User with the same username already exists!" });
-    }
+    assertAppError(
+        existingUser == null,
+        "User with the same username already exists!",
+        CONFLICT,
+        AppErrorCode.DATABASE_CONFLICT
+    );
 
     const user = new User({
         username,
@@ -33,21 +45,25 @@ export const register = errorCatcher(async (req, res) => {
     return res.status(CREATED).json(responseUser);
 });
 
-export const login = errorCatcher(async (req, res) => {
+export const login = errorCatcher(async (req: Request, res: Response) => {
     const { username, password } = req.body as { username: string; password: string };
 
+    assertAppError(
+        username != null && password != null,
+        "Username and password are required",
+        BAD_REQUEST,
+        AppErrorCode.MISSING_REQUEST_DATA
+    );
+
     const user = await User.findOne({ username });
-    if (!user) {
-        return res.status(UNAUTHORIZED).json({ message: "User with that username does not exist" });
-    }
+
+    assertAppError(user != null, "User not found", UNAUTHORIZED, AppErrorCode.OBJECT_NOT_FOUND);
 
     const isMatch = await user.comparePassword(password);
-    if (!isMatch) {
-        return res.status(UNAUTHORIZED).json({ message: "Invalid password for user" });
-    }
+    assertAppError(isMatch, "Invalid password for user", UNAUTHORIZED, AppErrorCode.INVALID_CREDENTIALS);
 
     const payload: JwtPayload = { id: user._id.toString(), role: user.role };
-    const accessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: "15m" });
+    const accessToken = signJwt(payload);
 
     res.cookie("accessToken", accessToken, {
         httpOnly: true,
@@ -56,18 +72,12 @@ export const login = errorCatcher(async (req, res) => {
         maxAge: 30 * 60 * 1000, // 30 min
     });
 
-    return res.status(OK).json({
-        id: user._id,
-        username: user.username,
-        role: user.role,
-    });
+    const responseUser = { id: user._id, username: user.username, role: user.role };
+
+    return res.status(OK).json(responseUser);
 });
 
-export const refresh = async (req: Request, res: Response) => {
-    // TODO: refresh token
-};
-
-export const logout = errorCatcher(async (req, res) => {
+export const logout = errorCatcher(async (req: Request, res: Response) => {
     res.clearCookie("accessToken");
 
     return res.status(OK).json({ message: "Logout successful" });

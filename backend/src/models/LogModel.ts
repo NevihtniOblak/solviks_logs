@@ -6,7 +6,7 @@ export interface Log extends Document {
     source: string;
     timestamp: Date;
     project: mongoose.Types.ObjectId;
-    data?: Record<string, any>;
+    data?: any;
 }
 
 const LogSchema: Schema<Log> = new Schema(

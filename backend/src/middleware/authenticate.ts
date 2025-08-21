@@ -1,23 +1,18 @@
 import { RequestHandler } from "express";
-import jwt from "jsonwebtoken";
 import { UNAUTHORIZED } from "../constants/http";
-import { JWT_SECRET } from "../constants/env";
+import { verifyJwt } from "../utils/jwt";
+import { assertAppError } from "../utils/assertAppError";
+import { AppErrorCode } from "../types/AppErrorCode";
+import { Request, Response } from "express";
 
-interface JwtPayload {
-    id: string;
-    role: string;
-}
-
-const authenticate: RequestHandler = (req, res, next) => {
+const authenticate: RequestHandler = (req: Request, res: Response, next) => {
     const token = req.cookies.accessToken as string | undefined;
 
-    if (!token) {
-        const err = new Error("No token provided");
-        (err as any).status = UNAUTHORIZED;
-        throw err;
-    }
+    assertAppError(token != null, "No token provided", UNAUTHORIZED, AppErrorCode.MISSING_TOKEN);
 
-    const payload = jwt.verify(token, JWT_SECRET) as JwtPayload;
+    const { error, payload } = verifyJwt(token);
+
+    assertAppError(payload != null, "Invalid token", UNAUTHORIZED, error || AppErrorCode.INVALID_TOKEN);
 
     req.user = { id: payload.id, role: payload.role };
 

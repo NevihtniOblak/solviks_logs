@@ -16,3 +16,23 @@ export const PRECONDITION_FAILED = 412;
 export const BAD_GATEWAY = 502;
 export const EXPECTATION_FAILED = 417;
 export const METHOD_NOT_ALLOWED = 405;
+
+export type httpStatusCode =
+    | typeof OK
+    | typeof CREATED
+    | typeof NO_CONTENT
+    | typeof BAD_REQUEST
+    | typeof UNAUTHORIZED
+    | typeof FORBIDDEN
+    | typeof NOT_FOUND
+    | typeof INTERNAL_SERVER_ERROR
+    | typeof SERVICE_UNAVAILABLE
+    | typeof GATEWAY_TIMEOUT
+    | typeof CONFLICT
+    | typeof UNPROCESSABLE_ENTITY
+    | typeof TOO_MANY_REQUESTS
+    | typeof NOT_IMPLEMENTED
+    | typeof PRECONDITION_FAILED
+    | typeof BAD_GATEWAY
+    | typeof EXPECTATION_FAILED
+    | typeof METHOD_NOT_ALLOWED;

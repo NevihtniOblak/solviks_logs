@@ -1,21 +1,19 @@
 import { RequestHandler } from "express";
-import { UNAUTHORIZED, FORBIDDEN } from "../constants/http";
+import { FORBIDDEN } from "../constants/http";
+import { assertAppError } from "../utils/assertAppError";
+import { AppErrorCode } from "../types/AppErrorCode";
+import { Request, Response } from "express";
 
 export const authorize = (requiredRole: "admin" | "user"): RequestHandler => {
-    return (req, res, next) => {
+    return (req: Request, res: Response, next) => {
         const role = req.user?.role;
 
-        if (!role) {
-            const err = new Error("Not authenticated");
-            (err as any).status = UNAUTHORIZED;
-            throw err;
-        }
-
-        if (role !== requiredRole) {
-            const err = new Error("Forbidden: insufficient rights");
-            (err as any).status = FORBIDDEN;
-            throw err;
-        }
+        assertAppError(
+            role === requiredRole,
+            "Forbidden: insufficient rights",
+            FORBIDDEN,
+            AppErrorCode.INSUFFICIENT_RIGHTS
+        );
 
         next();
     };

@@ -5,7 +5,7 @@ export const exportLogsToExcel = (logs: Log[], projectName: string) => {
     const data = logs.map((log) => ({
         Severity: log.severity,
         Source: log.source,
-        Timestamp: log.timestamp.toISOString(),
+        Timestamp: new Date(log.timestamp).toISOString(),
         Data: JSON.stringify(log.data),
     }));
 

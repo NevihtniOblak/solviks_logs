@@ -1,30 +1,31 @@
 import errorCatcher from "../utils/errorCatcher";
 import { User } from "../models/UserModel";
 import { OK, NOT_FOUND } from "../constants/http";
+import { AppErrorCode } from "../types/AppErrorCode";
+import { assertAppError } from "../utils/assertAppError";
+import { Request, Response } from "express";
 
-export const getAllUsers = errorCatcher(async (req, res) => {
+export const getAllUsers = errorCatcher(async (req: Request, res: Response) => {
     const users = await User.find();
     return res.status(OK).json(users);
 });
 
-export const getUser = errorCatcher(async (req, res) => {
+export const getUser = errorCatcher(async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const user = await User.findById(id);
-    if (!user) {
-        return res.status(NOT_FOUND).json({ message: "User not found" });
-    }
+
+    assertAppError(user != null, "User not found", NOT_FOUND, AppErrorCode.OBJECT_NOT_FOUND);
 
     return res.status(OK).json(user);
 });
 
-export const deleteUser = errorCatcher(async (req, res) => {
+export const deleteUser = errorCatcher(async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const user = await User.findByIdAndDelete(id);
-    if (!user) {
-        return res.status(NOT_FOUND).json({ message: "User not found" });
-    }
 
-    return res.status(OK).send();
+    assertAppError(user != null, "User not found", NOT_FOUND, AppErrorCode.OBJECT_NOT_FOUND);
+
+    return res.status(OK).json({ message: "User deleted successfully" });
 });
