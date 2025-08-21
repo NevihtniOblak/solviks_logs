@@ -1,4 +1,4 @@
-import type { User } from "../../models/UserModel";
+import type { User } from "../../types/User";
 import classes from "./UserCard.module.scss";
 
 type UserCardProps = {

@@ -1,6 +1,6 @@
-import axios from "../axios";
 import { ApiRoutes } from "../../constants/routes";
-import type { UserRole } from "../../models/UserRole";
+import type { UserRole } from "../../types/UserRole";
+import axios from "../axios";
 
 type LoginPayload = {
     username: string;

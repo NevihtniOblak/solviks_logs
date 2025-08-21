@@ -1,4 +1,4 @@
-import type { Project } from "../../models/ProjectModel";
+import type { Project } from "../../types/Project";
 import classes from "./ProjectCard.module.scss";
 
 type ProjectCardProps = {

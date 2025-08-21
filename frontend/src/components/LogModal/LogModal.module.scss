@@ -1,9 +1,9 @@
-@import "../../constants/colors";
+@use "../../constants/colors";
 
 .blur {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: colors.$blurColor;
     backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
@@ -12,11 +12,11 @@
 }
 
 .modal {
-    background: $primary;
+    background: colors.$primary;
     border-radius: 12px;
     width: 400px;
     height: fit-content;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px colors.$modalShadow;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,14 +31,14 @@
     padding: 15px;
 
     .logValBig {
-        background: #f0f0f0;
+        background: colors.$logFieldBackground;
         padding: 6px 10px;
         border-radius: 8px;
         padding: 6px 10px;
     }
 
     .logValSmall {
-        background: #f0f0f0;
+        background: colors.$logFieldBackground;
         padding: 6px 10px;
         border-radius: 8px;
         padding: 6px 10px;
@@ -48,7 +48,7 @@
     .logValBigger {
         display: inline-block;
         word-break: break-all;
-        background: #f0f0f0;
+        background: colors.$logFieldBackground;
         padding: 6px 10px;
         border-radius: 8px;
         width: 100%;

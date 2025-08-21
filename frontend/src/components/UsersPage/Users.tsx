@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import AddUserModal from "../AddUserModal/AddUserModal";
 import { useUsersQuery } from "../../api/user/hooks";
-import type { User } from "../../models/UserModel";
+import type { User } from "../../types/User";
 import classes from "./Users.module.scss";
 
 export default function Users() {

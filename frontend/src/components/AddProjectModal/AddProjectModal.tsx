@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import classes from "./AddProjectModal.module.scss";
 import { useAddProjectMutation } from "../../api/projects/hooks";
+import classes from "./AddProjectModal.module.scss";
 
 interface AddProjectModalProps {
     closeModal: () => void;
@@ -84,7 +84,7 @@ export default function AddProjectModal({ closeModal }: AddProjectModalProps) {
                                 onFocus={(e) => e.target.select()}
                                 onClick={() => {
                                     navigator.clipboard.writeText(apiKey).then(() => {
-                                        console.log("Copied to clipboard!");
+                                        alert("API key copied to clipboard!");
                                     });
                                 }}
                             />

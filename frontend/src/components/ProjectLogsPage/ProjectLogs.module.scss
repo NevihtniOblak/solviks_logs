@@ -1,4 +1,4 @@
-@import "../../constants/colors";
+@use "../../constants/colors";
 
 .container {
     height: 100%;
@@ -31,7 +31,7 @@
     font-family: "Roboto", sans-serif;
     font-size: 45px;
     font-weight: 200;
-    color: $titleText;
+    color: colors.$titleText;
     margin-bottom: 50px;
 }
 
@@ -42,10 +42,10 @@
 
     .select {
         border-radius: 0.5rem;
-        border: 1px solid #ccc;
-        background-color: lighten($tertiary, 10%);
+        border: 1px solid colors.$inputFieldBorder;
+        background-color: lighten(colors.$tertiary, 10%);
         font-size: 16px;
-        color: $textWhite;
+        color: colors.$textWhite;
         text-align: center;
 
         cursor: pointer;
@@ -53,8 +53,8 @@
 
     .button {
         padding: 10px 25px;
-        background-color: $tertiary;
-        color: $primary;
+        background-color: colors.$tertiary;
+        color: colors.$primary;
         font-family: "Inter", sans-serif;
         font-size: 16px;
         border: none;
@@ -63,7 +63,7 @@
         width: fit-content;
 
         &:hover {
-            background-color: $secondary;
+            background-color: colors.$secondary;
         }
 
         &:disabled {
@@ -86,7 +86,7 @@
 }
 
 .statsContainer {
-    background-color: $cardBackgroundLight;
+    background-color: colors.$cardBackgroundLight;
     padding: 20px;
     border-radius: 20px;
     display: flex;
@@ -97,7 +97,7 @@
         font-family: "Roboto", sans-serif;
         font-size: 18px;
         font-weight: 600;
-        color: $textDark;
+        color: colors.$textDark;
         margin-top: 10px;
         margin-bottom: 5px;
     }

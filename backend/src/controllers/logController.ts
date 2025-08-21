@@ -39,7 +39,7 @@ export const postLog = errorCatcher(async (req: Request, res: Response) => {
     assertAppError(
         project != null,
         "Project not found or unauthorized",
-        UNAUTHORIZED,
+        BAD_REQUEST,
         AppErrorCode.MISSING_REQUEST_DATA
     );
 

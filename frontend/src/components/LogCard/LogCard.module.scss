@@ -1,11 +1,12 @@
-@import "../../constants/colors";
+@use "../../constants/colors";
 
 .container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 8px 16px;
     border-radius: 6px;
-    background-color: $cardBackgroundLight;
+    background-color: colors.$cardBackgroundLight;
     margin-bottom: 8px;
     min-height: 50px;
     width: 100%;
@@ -14,15 +15,17 @@
 
 .source {
     flex-shrink: 0;
-    color: $textDark;
+    color: colors.$textDark;
+    font-size: 16px;
 }
 
-.spacer {
-    flex-grow: 1;
+.rightSide {
+    display: flex;
+    align-items: center;
 }
 
 .severity {
-    color: $primary;
+    color: colors.$primary;
     padding: 4px 8px;
     border-radius: 4px;
     font-weight: bold;
@@ -32,7 +35,7 @@
 }
 
 .timestamp {
-    color: $textDark;
-    font-size: 0.85rem;
+    color: colors.$textDark;
+    font-size: 13px;
     white-space: nowrap;
 }

@@ -1,11 +1,11 @@
-@import "../../constants/colors";
+@use "../../constants/colors";
 
 .card {
     width: 150px;
     height: 200px;
-    background-color: $cardBackgroundDark;
+    background-color: colors.$cardBackgroundDark;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px colors.$cardShadow;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +17,7 @@
 
     &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 12px colors.$cardShadowHover;
     }
 }
 
@@ -42,11 +42,11 @@
     text-align: center;
     margin-top: 8px;
     font-size: 20x;
-    color: $textWhite;
+    color: colors.$textWhite;
 }
 
 .role {
     text-align: center;
     font-size: 14px;
-    color: darken($textWhite, 10%);
+    color: darken(colors.$textWhite, 10%);
 }

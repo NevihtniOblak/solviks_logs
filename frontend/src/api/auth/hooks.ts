@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { UserContext } from "../../context/UserContext";
 import { loginUser, logoutUser, registerUser } from "./";
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Routes } from "../../constants/routes";
 import { QueryKeys } from "../../constants/queryKeys";
 import { useQueryClient } from "@tanstack/react-query";
-import type { User } from "../../models/UserModel";
+import type { User } from "../../types/User";
 
 type UseLoginMutationProps = {
     usernameRef: React.RefObject<HTMLInputElement | null>;

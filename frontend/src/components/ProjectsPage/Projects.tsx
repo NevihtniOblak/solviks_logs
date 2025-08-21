@@ -1,9 +1,9 @@
-import ProjectCard from "../ProjectCard/ProjectCard";
-import type { Project } from "../../models/ProjectModel";
+import type { Project } from "../../types/Project";
 import { useNavigate } from "react-router";
 import { useProjectsQuery } from "../../api/projects/hooks";
 import { useState } from "react";
 import AddProjectModal from "../AddProjectModal/AddProjectModal";
+import ProjectCard from "../ProjectCard/ProjectCard";
 
 import classes from "./Projects.module.scss";
 

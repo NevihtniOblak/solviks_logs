@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { UserContext } from "./context/UserContext";
-import type { User } from "./models/UserModel";
+import type { User } from "./types/User";
+import { registerLogoutHandler } from "./api/axios";
 import Login from "./components/Login/Login";
 import Projects from "./components/ProjectsPage/Projects";
 import ProjectLogs from "./components/ProjectLogsPage/ProjectLogs";
@@ -19,6 +20,13 @@ function AppWrapper() {
         else localStorage.removeItem("user");
         setUser(userInfo);
     };
+
+    useEffect(() => {
+        registerLogoutHandler(() => {
+            updateUserData(null);
+            window.location.href = "/login";
+        });
+    }, []);
 
     return (
         <UserContext.Provider value={{ user, setUserContext: updateUserData }}>

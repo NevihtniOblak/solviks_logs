@@ -2,7 +2,7 @@ import errorCatcher from "../utils/errorCatcher";
 import { User } from "../models/UserModel";
 import { JwtPayload } from "../utils/jwt";
 import { NODE_ENV } from "../constants/env";
-import { BAD_REQUEST, CONFLICT, CREATED, OK, UNAUTHORIZED } from "../constants/http";
+import { BAD_REQUEST, CONFLICT, CREATED, NOT_FOUND, OK, UNAUTHORIZED } from "../constants/http";
 import { assertAppError } from "../utils/assertAppError";
 import { AppErrorCode } from "../types/AppErrorCode";
 import { Request, Response } from "express";
@@ -57,7 +57,7 @@ export const login = errorCatcher(async (req: Request, res: Response) => {
 
     const user = await User.findOne({ username });
 
-    assertAppError(user != null, "User not found", UNAUTHORIZED, AppErrorCode.OBJECT_NOT_FOUND);
+    assertAppError(user != null, "User not found", NOT_FOUND, AppErrorCode.OBJECT_NOT_FOUND);
 
     const isMatch = await user.comparePassword(password);
     assertAppError(isMatch, "Invalid password for user", UNAUTHORIZED, AppErrorCode.INVALID_CREDENTIALS);

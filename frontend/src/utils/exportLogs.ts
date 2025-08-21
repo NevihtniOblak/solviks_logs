@@ -1,6 +1,6 @@
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-import type { Log } from "../models/LogModel";
+import type { Log } from "../types/Log";
 export const exportLogsToExcel = (logs: Log[], projectName: string) => {
     const data = logs.map((log) => ({
         Severity: log.severity,

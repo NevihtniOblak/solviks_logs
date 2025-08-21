@@ -1,6 +1,6 @@
 import { QueryKeys } from "../../constants/queryKeys";
 import { useQuery } from "@tanstack/react-query";
-import type { Project } from "../../models/ProjectModel";
+import type { Project } from "../../types/Project";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { addProject, getProjectById, getProjects } from "./";

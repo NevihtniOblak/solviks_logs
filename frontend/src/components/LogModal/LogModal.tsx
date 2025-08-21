@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
-import classes from "./LogModal.module.scss";
-import type { Log } from "../../models/LogModel";
+import type { Log } from "../../types/Log";
 import { severityColors, severityStrings } from "../../constants/logSeverity";
+import classes from "./LogModal.module.scss";
 
 interface LogModalProps {
     log: Log;

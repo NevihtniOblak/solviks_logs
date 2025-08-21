@@ -1,5 +1,5 @@
-import axios from "../axios";
 import { ApiRoutes } from "../../constants/routes";
+import axios from "../axios";
 
 export const getProjects = async () => {
     const response = await axios.get(ApiRoutes.getAllProjects());

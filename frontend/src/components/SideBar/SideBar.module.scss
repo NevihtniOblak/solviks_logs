@@ -1,18 +1,18 @@
-@import "../../constants/colors";
+@use "../../constants/colors";
 
 .container {
     display: flex;
     flex-direction: column;
     width: 100px;
     height: 100%;
-    background-color: $secondary;
+    background-color: colors.$secondary;
     position: relative;
 }
 
 .top {
     height: 70px;
     width: 100%;
-    background-color: $tertiary;
+    background-color: colors.$tertiary;
 }
 
 .buttons {
@@ -47,6 +47,6 @@
     left: 0;
     width: 100%;
     height: 90px;
-    background-color: $highlight;
+    background-color: colors.$highlight;
     z-index: 0;
 }

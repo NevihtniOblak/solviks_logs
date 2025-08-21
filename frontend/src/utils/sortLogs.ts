@@ -1,5 +1,5 @@
-import type { Log } from "../models/LogModel";
-import type { SortMode } from "../models/SortMode";
+import type { Log } from "../types/Log";
+import type { SortMode } from "../types/SortMode";
 
 export const sortLogs = (logs: Log[], mode: SortMode): Log[] => {
     return [...logs].sort((a, b) => {

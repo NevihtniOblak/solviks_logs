@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import type { FormEvent } from "react";
 import { useLoginMutation } from "../../api/auth/hooks";
-
 import classes from "./Login.module.scss";
 
 export default function Login() {

@@ -1,4 +1,4 @@
-import type { Log } from "../../models/LogModel";
+import type { Log } from "../../types/Log";
 import { severityColors, severityLabels } from "../../constants/logSeverity";
 import classes from "./LogCard.module.scss";
 
@@ -15,12 +15,12 @@ export default function LogCard({ log, onClick }: LogCardProps) {
         <div className={classes.container} onClick={onClick}>
             <div className={classes.source}>{log.source}</div>
 
-            <div className={classes.spacer}></div>
-
-            <div className={classes.severity} style={{ backgroundColor: severityColor }}>
-                {severityLabel.toUpperCase()}
+            <div className={classes.rightSide}>
+                <div className={classes.severity} style={{ backgroundColor: severityColor }}>
+                    {severityLabel.toUpperCase()}
+                </div>
+                <div className={classes.timestamp}>{new Date(log.timestamp).toLocaleString()}</div>
             </div>
-            <div className={classes.timestamp}>{new Date(log.timestamp).toLocaleString()}</div>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import type { Log } from "../models/LogModel";
+import type { Log } from "../types/Log";
 
 const isWithinLast = (timestamp: Date, ms: number): boolean => {
     const now = new Date().getTime();

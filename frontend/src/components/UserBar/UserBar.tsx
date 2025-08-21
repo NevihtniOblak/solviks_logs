@@ -1,4 +1,4 @@
-import type { User } from "../../models/UserModel.ts";
+import type { User } from "../../types/User.ts";
 import { useLogoutQuery } from "../../api/auth/hooks.ts";
 import { UserContext } from "../../context/UserContext.ts";
 import { useContext } from "react";

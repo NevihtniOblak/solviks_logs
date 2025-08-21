@@ -1,17 +1,18 @@
 import { useParams } from "react-router-dom";
-import type { Log } from "../../models/LogModel";
-import LogCard from "../LogCard/LogCard";
+import type { Log } from "../../types/Log";
 import { useProjectQuery } from "../../api/projects/hooks";
 import { countLogsBySeverity, countLogsLastDay, countLogsLastHour } from "../../utils/logStats";
 import { severityColors, severityStrings } from "../../constants/logSeverity";
 import { exportLogsToExcel } from "../../utils/exportLogs";
-import type { SortMode } from "../../models/SortMode";
+import type { SortMode } from "../../types/SortMode";
 import { useMemo, useState } from "react";
 import { sortLogs } from "../../utils/sortLogs";
+import type { Project } from "../../types/Project";
 import { useLogsByProjectQuery } from "../../api/logs/hooks";
 import LogModal from "../LogModal/LogModal";
+import LogCard from "../LogCard/LogCard";
+
 import classes from "./ProjectLogs.module.scss";
-import type { Project } from "../../models/ProjectModel";
 
 export default function ProjectLogs() {
     const [selectedLog, setSelectedLog] = useState<Log | null>(null);

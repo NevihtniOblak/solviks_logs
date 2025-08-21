@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import type { UserRole } from "../../models/UserRole";
-import classes from "./AddUserModal.module.scss";
+import type { UserRole } from "../../types/UserRole";
 import { useRegisterMutation } from "../../api/auth/hooks";
+import classes from "./AddUserModal.module.scss";
 
 interface AddUserModalProps {
     closeModal: () => void;
