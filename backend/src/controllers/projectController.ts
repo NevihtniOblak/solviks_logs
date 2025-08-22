@@ -1,5 +1,5 @@
 import errorCatcher from "../utils/errorCatcher";
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 import crypto from "crypto";
 import { Project } from "../models/ProjectModel";
 import { Log } from "../models/LogModel";
@@ -47,6 +47,19 @@ export const createProject = errorCatcher(async (req: Request, res: Response) =>
         project: responseProject,
         apiKey: apiKey,
     });
+});
+
+export const regenerateProjectKey = errorCatcher(async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const project = await Project.findById(id);
+    assertAppError(project != null, "Project not found", NOT_FOUND, AppErrorCode.OBJECT_NOT_FOUND);
+
+    const newApiKey = crypto.randomBytes(32).toString("hex");
+    project.apiKey = newApiKey;
+    await project.save();
+
+    return res.status(OK).json({ apiKey: newApiKey });
 });
 
 export const deleteProject = errorCatcher(async (req: Request, res: Response) => {

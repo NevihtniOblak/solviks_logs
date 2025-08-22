@@ -15,3 +15,8 @@ export const addProject = async (projectName: string) => {
     const response = await axios.post(ApiRoutes.createProject(), { name: projectName });
     return response.data;
 };
+
+export const regenerateProjectKey = async (id: string) => {
+    const response = await axios.put(ApiRoutes.regenerateProjectKey(id));
+    return response.data;
+};

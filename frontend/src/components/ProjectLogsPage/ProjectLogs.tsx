@@ -11,11 +11,13 @@ import type { Project } from "../../types/Project";
 import { useLogsByProjectQuery } from "../../api/logs/hooks";
 import LogModal from "../LogModal/LogModal";
 import LogCard from "../LogCard/LogCard";
+import RegenerateKeyModal from "../RegenerateKeyModal/RegenerateKeyModal";
 
 import classes from "./ProjectLogs.module.scss";
 
 export default function ProjectLogs() {
     const [selectedLog, setSelectedLog] = useState<Log | null>(null);
+    const [regenKeyModalOpen, setRegenKeyModalOpen] = useState(false);
     const [sortMode, setSortMode] = useState<SortMode>("latest");
 
     const { id } = useParams();
@@ -80,8 +82,13 @@ export default function ProjectLogs() {
                         })}
                     </div>
                 </div>
+                <button className={classes.regenerateButton} onClick={() => setRegenKeyModalOpen(true)}>
+                    <img src="/images/keyIcon.png" alt="Key Icon" className={classes.icon} />
+                    Regenerate API Key
+                </button>
             </div>
             {selectedLog && <LogModal log={selectedLog} closeModal={() => setSelectedLog(null)} />}
+            {regenKeyModalOpen && <RegenerateKeyModal closeModal={() => setRegenKeyModalOpen(false)} projectId={id!} />}
         </div>
     );
 }

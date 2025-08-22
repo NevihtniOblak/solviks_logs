@@ -1,32 +1,29 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import classes from "./AddProjectModal.module.scss";
-import { useAddProjectMutation } from "../../api/projects/hooks";
+import { useRegenerateProjectKeyMutation } from "../../api/projects/hooks";
+import classes from "./RegenerateKeyModal.module.scss";
 
-interface AddProjectModalProps {
+interface RegenerateKeyModalProps {
     closeModal: () => void;
+    projectId: string;
 }
 
-export default function AddProjectModal({ closeModal }: AddProjectModalProps) {
-    const projectNameRef = useRef<HTMLInputElement>(null);
+export default function RegenerateKeyModal({ closeModal, projectId }: RegenerateKeyModalProps) {
     const [apiKey, setApiKey] = useState<string | null>(null);
 
     const displayApiKey = (apiKey: string) => {
         setApiKey(apiKey);
     };
 
+    const regenerateKeyMutation = useRegenerateProjectKeyMutation({ projectId, displayApiKey });
+
+    const handleConfirm = () => {
+        regenerateKeyMutation.mutate(projectId);
+    };
+
     const handleCloseModal = () => {
         setApiKey(null);
         closeModal();
-    };
-
-    const addProjectMutation = useAddProjectMutation({ projectNameRef, displayApiKey });
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (projectNameRef.current) {
-            addProjectMutation.mutate(projectNameRef.current.value);
-        }
     };
 
     const stopPropagation = (e: React.MouseEvent) => e.stopPropagation();
@@ -49,33 +46,27 @@ export default function AddProjectModal({ closeModal }: AddProjectModalProps) {
                     exit={{ opacity: 0, scale: 0.8 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                 >
-                    <div className={classes.titleWrapper}>
-                        <h2 className={classes.title}>{apiKey ? "Save your API key" : "Add new project"}</h2>
-                    </div>
-
                     {!apiKey ? (
-                        <form onSubmit={handleSubmit}>
-                            <input
-                                type="text"
-                                placeholder="Project Name"
-                                ref={projectNameRef}
-                                className={classes.input}
-                                required
-                            />
+                        <div className={classes.innerModal}>
+                            <p className={classes.text}>Are you sure you want to regenerate your API key?</p>
                             <div className={classes.buttonWrapper}>
-                                <button type="submit" className={classes.button}>
-                                    Add
+                                <button className={classes.button} onClick={handleConfirm}>
+                                    Yes
+                                </button>
+                                <button className={classes.button} onClick={handleCloseModal}>
+                                    Cancel
                                 </button>
                             </div>
-                        </form>
+                        </div>
                     ) : (
                         <motion.div
-                            className={classes.apiKeyWrapper}
-                            initial={{ opacity: 0, y: -20 }}
+                            className={classes.innerModal}
+                            initial={{ opacity: 0, y: -50 }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.3, ease: "easeOut" }}
+                            exit={{ opacity: 0, y: -50 }}
+                            transition={{ duration: 0.15, ease: "easeOut" }}
                         >
+                            <p className={classes.text}>Copy your new API key:</p>
                             <input
                                 type="text"
                                 value={apiKey}
@@ -84,7 +75,7 @@ export default function AddProjectModal({ closeModal }: AddProjectModalProps) {
                                 onFocus={(e) => e.target.select()}
                                 onClick={() => {
                                     navigator.clipboard.writeText(apiKey).then(() => {
-                                        console.log("Copied to clipboard!");
+                                        alert("API key copied to clipboard!");
                                     });
                                 }}
                             />
