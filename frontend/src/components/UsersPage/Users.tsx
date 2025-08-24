@@ -1,13 +1,16 @@
 import UserCard from "../UserCard/UserCard";
 import { useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import AddUserModal from "../AddUserModal/AddUserModal";
+import AddUserModal from "../modals/content/AddUserModal/AddUserModal";
 import { useUsersQuery } from "../../api/user/hooks";
 import type { User } from "../../types/User";
+import Modal from "../modals/Modal/Modal";
+import DeleteUserModal from "../modals/content/DeleteUserModal/DeleteUserModal";
 import classes from "./Users.module.scss";
 
 export default function Users() {
     const [showModal, setShowModal] = useState(false);
+    const [deleteUserModal, setDeleteUserModal] = useState<User | null>(null);
     const userCtx = useContext(UserContext);
 
     const { data } = useUsersQuery();
@@ -21,6 +24,10 @@ export default function Users() {
         setShowModal(true);
     };
 
+    const openDeleteUserModal = (user: User) => {
+        setDeleteUserModal(user);
+    };
+
     return (
         <div className={classes.container}>
             <div className={classes.innerContainer}>
@@ -30,12 +37,27 @@ export default function Users() {
                         <span>+</span>
                     </div>
                     {users.map((user) => (
-                        <UserCard key={user._id} user={user} onClick={() => console.log(user._id)} />
+                        <UserCard
+                            key={user._id}
+                            user={user}
+                            onClick={() => console.log(user._id)}
+                            openDeleteUserModal={openDeleteUserModal}
+                        />
                     ))}
                 </div>
             </div>
 
-            {showModal && <AddUserModal closeModal={() => setShowModal(false)} />}
+            {showModal && (
+                <Modal closeModal={() => setShowModal(false)}>
+                    <AddUserModal closeModal={() => setShowModal(false)} />
+                </Modal>
+            )}
+
+            {deleteUserModal && (
+                <Modal closeModal={() => setDeleteUserModal(null)}>
+                    <DeleteUserModal closeModal={() => setDeleteUserModal(null)} user={deleteUserModal} />
+                </Modal>
+            )}
         </div>
     );
 }

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { Project } from "../../types/Project";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
-import { addProject, getProjectById, getProjects, regenerateProjectKey } from "./";
+import { addProject, getProjectById, getProjects, regenerateProjectKey, deleteProject } from "./";
 
 type useAddProjectMutationProps = {
     projectNameRef: React.RefObject<HTMLInputElement | null>;
@@ -15,6 +15,10 @@ type useRegenerateProjectKeyMutationProps = {
     projectId: string;
     displayApiKey: (apiKey: string) => void;
     onError?: () => void;
+};
+
+type useDeleteProjectMutationProps = {
+    callback?: () => void;
 };
 
 export const useProjectsQuery = () => {
@@ -61,6 +65,19 @@ export const useRegenerateProjectKeyMutation = ({ projectId, displayApiKey }: us
                 };
             });
             displayApiKey(data.apiKey);
+        },
+    });
+};
+
+export const useDeleteProjectMutation = ({ callback }: useDeleteProjectMutationProps) => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: deleteProject,
+        onSuccess: (_, variables) => {
+            queryClient.setQueryData([QueryKeys.PROJECTS], (old: Project[]) => {
+                return old ? old.filter((project) => project._id !== variables) : [];
+            });
+            if (callback) callback();
         },
     });
 };

@@ -20,3 +20,8 @@ export const regenerateProjectKey = async (id: string) => {
     const response = await axios.put(ApiRoutes.regenerateProjectKey(id));
     return response.data;
 };
+
+export const deleteProject = async (id: string) => {
+    const response = await axios.delete(ApiRoutes.deleteProject(id));
+    return response.data;
+};

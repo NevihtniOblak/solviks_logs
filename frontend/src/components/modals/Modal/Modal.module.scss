@@ -1,0 +1,22 @@
+@use "../../../constants/colors";
+
+.blur {
+    position: fixed;
+    inset: 0;
+    background: colors.$blurColor;
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: colors.$primary;
+    border-radius: 12px;
+    width: 300px;
+    height: fit-content;
+    box-shadow: 0 4px 12px colors.$modalShadow;
+    padding: 15px;
+    overflow: visible;
+}

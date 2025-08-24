@@ -2,10 +2,10 @@ import type { Project } from "../../types/Project";
 import { useNavigate } from "react-router";
 import { useProjectsQuery } from "../../api/projects/hooks";
 import { useState } from "react";
-import AddProjectModal from "../AddProjectModal/AddProjectModal";
+import AddProjectModal from "../modals/content/AddProjectModal/AddProjectModal";
 import ProjectCard from "../ProjectCard/ProjectCard";
-
 import classes from "./Projects.module.scss";
+import Modal from "../modals/Modal/Modal";
 
 export default function Projects() {
     const [showModal, setShowModal] = useState(false);
@@ -32,13 +32,20 @@ export default function Projects() {
                         <ProjectCard
                             key={project._id}
                             project={project}
-                            onClick={() => navigate(`/projects/${project._id}`)}
+                            onClick={() => {
+                                console.log(project._id);
+                                navigate(`/projects/${project._id}`);
+                            }}
                         />
                     ))}
                 </div>
             </div>
 
-            {showModal && <AddProjectModal closeModal={() => setShowModal(false)} />}
+            {showModal && (
+                <Modal closeModal={() => setShowModal(false)}>
+                    <AddProjectModal closeModal={() => setShowModal(false)} />
+                </Modal>
+            )}
         </div>
     );
 }

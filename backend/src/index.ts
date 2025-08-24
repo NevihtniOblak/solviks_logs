@@ -6,7 +6,7 @@ import connectToDatabase from "./config/db";
 import errorHandler from "./middleware/errorHandler";
 import authenticate from "./middleware/authenticate";
 
-import { APP_ORIGIN, PORT } from "./constants/env";
+import { FRONTEND_URL, PORT } from "./constants/env";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
 import projectRoutes from "./routes/projectRoutes";
@@ -16,7 +16,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: `${APP_ORIGIN}`, credentials: true }));
+app.use(cors({ origin: `${FRONTEND_URL}`, credentials: true }));
 app.use(cookieParser());
 
 app.use("/auth", authRoutes);

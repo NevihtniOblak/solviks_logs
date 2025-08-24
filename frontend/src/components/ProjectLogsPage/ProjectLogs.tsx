@@ -9,14 +9,16 @@ import { useMemo, useState } from "react";
 import { sortLogs } from "../../utils/sortLogs";
 import type { Project } from "../../types/Project";
 import { useLogsByProjectQuery } from "../../api/logs/hooks";
-import LogModal from "../LogModal/LogModal";
+import LogModal from "../modals/content/LogModal/LogModal";
 import LogCard from "../LogCard/LogCard";
-import RegenerateKeyModal from "../RegenerateKeyModal/RegenerateKeyModal";
-
+import RegenerateKeyModal from "../modals/content/RegenerateKeyModal/RegenerateKeyModal";
+import DeleteProjectModal from "../modals/content/DeleteProjectModal/DeleteProjectModal";
+import Modal from "../modals/Modal/Modal";
 import classes from "./ProjectLogs.module.scss";
 
 export default function ProjectLogs() {
     const [selectedLog, setSelectedLog] = useState<Log | null>(null);
+    const [deleteProjectModalOpen, setDeleteProjectModalOpen] = useState<Project | null>(null);
     const [regenKeyModalOpen, setRegenKeyModalOpen] = useState(false);
     const [sortMode, setSortMode] = useState<SortMode>("latest");
 
@@ -37,7 +39,7 @@ export default function ProjectLogs() {
             <div className={classes.leftContainer}>
                 {!isLoading && project && <h1 className={classes.projectName}>{project.name}</h1>}
 
-                <div className={classes.buttonsContainer}>
+                <div className={classes.utilButtonsContainer}>
                     <select
                         value={sortMode}
                         onChange={(e) => setSortMode(e.target.value as SortMode)}
@@ -82,13 +84,38 @@ export default function ProjectLogs() {
                         })}
                     </div>
                 </div>
-                <button className={classes.regenerateButton} onClick={() => setRegenKeyModalOpen(true)}>
-                    <img src="/images/keyIcon.png" alt="Key Icon" className={classes.icon} />
-                    Regenerate API Key
-                </button>
+                <div className={classes.buttonsContainer}>
+                    <button
+                        className={classes.deleteButton}
+                        onClick={() => project && setDeleteProjectModalOpen(project)}
+                    >
+                        <img src="/images/trashIcon.png" alt="Trash Icon" className={classes.icon} />
+                        Delete Project
+                    </button>
+                    <button className={classes.regenerateButton} onClick={() => setRegenKeyModalOpen(true)}>
+                        <img src="/images/keyIcon.png" alt="Key Icon" className={classes.icon} />
+                        Regenerate API Key
+                    </button>
+                </div>
             </div>
-            {selectedLog && <LogModal log={selectedLog} closeModal={() => setSelectedLog(null)} />}
-            {regenKeyModalOpen && <RegenerateKeyModal closeModal={() => setRegenKeyModalOpen(false)} projectId={id!} />}
+
+            {selectedLog && (
+                <Modal closeModal={() => setSelectedLog(null)} width={"350px"}>
+                    <LogModal log={selectedLog} closeModal={() => setSelectedLog(null)} />
+                </Modal>
+            )}
+
+            {regenKeyModalOpen && id && (
+                <Modal closeModal={() => setRegenKeyModalOpen(false)}>
+                    <RegenerateKeyModal closeModal={() => setRegenKeyModalOpen(false)} projectId={id} />
+                </Modal>
+            )}
+
+            {deleteProjectModalOpen && id && (
+                <Modal closeModal={() => setDeleteProjectModalOpen(null)}>
+                    <DeleteProjectModal closeModal={() => setDeleteProjectModalOpen(null)} projectId={id} />
+                </Modal>
+            )}
         </div>
     );
 }

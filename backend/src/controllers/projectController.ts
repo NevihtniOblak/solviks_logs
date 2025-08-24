@@ -1,5 +1,5 @@
 import errorCatcher from "../utils/errorCatcher";
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import crypto from "crypto";
 import { Project } from "../models/ProjectModel";
 import { Log } from "../models/LogModel";
@@ -39,7 +39,7 @@ export const createProject = errorCatcher(async (req: Request, res: Response) =>
     await project.save();
 
     const responseProject = {
-        id: project._id,
+        _id: project._id,
         name: project.name,
     };
 

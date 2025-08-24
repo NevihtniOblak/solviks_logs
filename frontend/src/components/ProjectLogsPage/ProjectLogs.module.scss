@@ -37,7 +37,7 @@
     margin-bottom: 50px;
 }
 
-.buttonsContainer {
+.utilButtonsContainer {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -133,10 +133,15 @@
     }
 }
 
+.buttonsContainer {
+    display: flex;
+    gap: 10px;
+}
+
 .regenerateButton {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 8px;
     padding: 8px;
     padding-left: 10px;
@@ -157,5 +162,33 @@
 
     &:hover {
         background-color: lighten(colors.$secondary, 5%);
+    }
+}
+
+.deleteButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    gap: 8px;
+    padding: 8px;
+    padding-left: 10px;
+    padding-right: 20px;
+    background-color: colors.$deleteButtonBackground;
+    color: colors.$primary;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: fit-content;
+
+    .icon {
+        height: 18px;
+        width: 18px;
+    }
+
+    &:hover {
+        background-color: darken(colors.$deleteButtonBackground, 5%);
     }
 }
