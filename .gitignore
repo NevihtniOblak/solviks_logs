@@ -23,7 +23,6 @@ dist-ssr/
 *.tsbuildinfo
 
 # Logs
-logs/
 *.log
 
 # Runtime data
