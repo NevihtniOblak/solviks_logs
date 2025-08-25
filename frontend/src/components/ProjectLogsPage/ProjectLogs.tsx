@@ -5,10 +5,11 @@ import { countLogsBySeverity, countLogsLastDay, countLogsLastHour } from "../../
 import { severityColors, severityStrings } from "../../constants/logSeverity";
 import { exportLogsToExcel } from "../../utils/exportLogs";
 import type { SortMode } from "../../types/SortMode";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useContext } from "react";
 import { sortLogs } from "../../utils/sortLogs";
 import type { Project } from "../../types/Project";
 import { useLogsByProjectQuery } from "../../api/logs/hooks";
+import { UserContext } from "../../context/UserContext";
 import LogModal from "../modals/content/LogModal/LogModal";
 import LogCard from "../LogCard/LogCard";
 import RegenerateKeyModal from "../modals/content/RegenerateKeyModal/RegenerateKeyModal";
@@ -33,6 +34,8 @@ export default function ProjectLogs() {
     const logsLastHour = useMemo(() => countLogsLastHour(logs), [logs]);
     const logsLastDay = useMemo(() => countLogsLastDay(logs), [logs]);
     const logsBySeverity = useMemo(() => countLogsBySeverity(logs), [logs]);
+
+    const userCtx = useContext(UserContext);
 
     return (
         <div className={classes.container}>
@@ -88,11 +91,16 @@ export default function ProjectLogs() {
                     <button
                         className={classes.deleteButton}
                         onClick={() => project && setDeleteProjectModalOpen(project)}
+                        disabled={userCtx.user?.role !== "admin"}
                     >
                         <img src="/images/trashIcon.png" alt="Trash Icon" className={classes.icon} />
                         Delete Project
                     </button>
-                    <button className={classes.regenerateButton} onClick={() => setRegenKeyModalOpen(true)}>
+                    <button
+                        className={classes.regenerateButton}
+                        onClick={() => setRegenKeyModalOpen(true)}
+                        disabled={userCtx.user?.role !== "admin"}
+                    >
                         <img src="/images/keyIcon.png" alt="Key Icon" className={classes.icon} />
                         Regenerate API Key
                     </button>

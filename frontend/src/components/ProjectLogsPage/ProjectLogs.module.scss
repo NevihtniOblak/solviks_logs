@@ -57,7 +57,6 @@
         padding: 10px 25px;
         background-color: colors.$tertiary;
         color: colors.$primary;
-        font-family: "Inter", sans-serif;
         font-size: 16px;
         border: none;
         border-radius: 10px;
@@ -116,10 +115,6 @@
         align-items: center;
         gap: 0.5rem;
 
-        span {
-            font-family: "Inter", sans-serif;
-        }
-
         .severityCircle {
             width: 16px;
             height: 16px;
@@ -148,7 +143,6 @@
     padding-right: 20px;
     background-color: colors.$secondary;
     color: colors.$primary;
-    font-family: "Inter", sans-serif;
     font-size: 14px;
     border: none;
     border-radius: 10px;
@@ -176,7 +170,6 @@
     padding-right: 20px;
     background-color: colors.$deleteButtonBackground;
     color: colors.$primary;
-    font-family: "Inter", sans-serif;
     font-size: 14px;
     border: none;
     border-radius: 10px;

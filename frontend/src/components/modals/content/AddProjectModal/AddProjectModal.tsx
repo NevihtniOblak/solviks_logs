@@ -67,7 +67,7 @@ export default function AddProjectModal({ closeModal }: AddProjectModalProps) {
                             onFocus={(e) => e.target.select()}
                             onClick={() => {
                                 navigator.clipboard.writeText(apiKey).then(() => {
-                                    console.log("Copied to clipboard!");
+                                    alert("API key copied to clipboard!");
                                 });
                             }}
                         />

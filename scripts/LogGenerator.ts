@@ -24,7 +24,6 @@ async function sendLog() {
             },
             withCredentials: true,
         });
-        console.log("Log sent successfully:", res.data);
     } catch (err: any) {
         console.error("Error sending log:", err.response?.data || err.message);
     }

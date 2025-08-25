@@ -31,18 +31,13 @@ export default function Users() {
     return (
         <div className={classes.container}>
             <div className={classes.innerContainer}>
-                <h1>Users</h1>
+                <h1 className={classes.title}>Users</h1>
                 <div className={classes.grid}>
                     <div className={classes.addCard} onClick={handleAddUserClick}>
                         <span>+</span>
                     </div>
                     {users.map((user) => (
-                        <UserCard
-                            key={user._id}
-                            user={user}
-                            onClick={() => console.log(user._id)}
-                            openDeleteUserModal={openDeleteUserModal}
-                        />
+                        <UserCard key={user._id} user={user} openDeleteUserModal={openDeleteUserModal} />
                     ))}
                 </div>
             </div>

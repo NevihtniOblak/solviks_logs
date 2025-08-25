@@ -22,7 +22,7 @@ export default function Projects() {
     return (
         <div className={classes.container}>
             <div className={classes.innerContainer}>
-                <h1>Projects</h1>
+                <h1 className={classes.title}>Projects</h1>
                 <div className={classes.grid}>
                     <div className={classes.addCard} onClick={handleAddProject}>
                         <span>+</span>
@@ -33,7 +33,6 @@ export default function Projects() {
                             key={project._id}
                             project={project}
                             onClick={() => {
-                                console.log(project._id);
                                 navigate(`/projects/${project._id}`);
                             }}
                         />
