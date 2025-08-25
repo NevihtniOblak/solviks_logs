@@ -1,4 +1,5 @@
 @use "../../constants/colors";
+@use "sass:color";
 
 .userBar {
     display: flex;
@@ -37,7 +38,7 @@
 .userRank {
     font-size: 10px;
     font-weight: 100;
-    color: darken(colors.$textWhite, 10%);
+    color: color.adjust(colors.$textWhite, $lightness: -10%);
 }
 
 .logoutButton {

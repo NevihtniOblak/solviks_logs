@@ -1,4 +1,5 @@
 @use "../../constants/colors";
+@use "sass:color";
 
 .container {
     height: 100%;
@@ -45,7 +46,7 @@
     .select {
         border-radius: 0.5rem;
         border: 1px solid colors.$inputFieldBorder;
-        background-color: lighten(colors.$tertiary, 10%);
+        background-color: color.adjust(colors.$tertiary, $lightness: 10%);
         font-size: 16px;
         color: colors.$textWhite;
         text-align: center;
@@ -154,8 +155,14 @@
         width: 20px;
     }
 
-    &:hover {
-        background-color: lighten(colors.$secondary, 5%);
+    &:disabled {
+        background-color: color.adjust(colors.$secondary, $lightness: 25%);
+
+        cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+        background-color: color.adjust(colors.$secondary, $lightness: 5%);
     }
 }
 
@@ -181,7 +188,12 @@
         width: 18px;
     }
 
-    &:hover {
-        background-color: darken(colors.$deleteButtonBackground, 5%);
+    &:disabled {
+        background-color: color.adjust(colors.$deleteButtonBackground, $lightness: 15%);
+        cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+        background-color: color.adjust(colors.$deleteButtonBackground, $lightness: 5%);
     }
 }

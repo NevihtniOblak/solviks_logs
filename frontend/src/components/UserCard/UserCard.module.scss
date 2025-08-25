@@ -1,4 +1,5 @@
 @use "../../constants/colors";
+@use "sass:color";
 
 .card {
     width: 150px;
@@ -53,7 +54,7 @@
 .role {
     text-align: center;
     font-size: 14px;
-    color: darken(colors.$textWhite, 10%);
+    color: color.adjust(colors.$textWhite, $lightness: -10%);
 }
 
 .deleteIcon {
