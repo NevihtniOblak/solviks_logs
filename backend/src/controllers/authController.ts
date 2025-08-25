@@ -68,7 +68,7 @@ export const login = errorCatcher(async (req: Request, res: Response) => {
     res.cookie("accessToken", accessToken, {
         httpOnly: true,
         secure: NODE_ENV === "production",
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 30 * 60 * 1000, // 30 min
     });
 
