@@ -1,4 +1,4 @@
-# Povezetek projekta
+# Povzetek projekta
 
 Projekt je sestavljen iz spletne aplikacije za pregled nad logi iz različnih zunanjih aplikacij v okviru posameznih projektov. Prav tako je priložena še testna skripta za avtomatsko generiranje in pošiljanje logov na strežnik.
 
